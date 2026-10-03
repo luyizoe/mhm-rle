@@ -1,0 +1,9 @@
+# Claude / Anthropic IP 段
+# 来源: https://ip.net.coffee/claude/site.html 「IP 段 / ASN 兜底规则」
+# 用法: mihomo rule-provider，behavior: ipcidr，format: yaml
+# 只写裸网段。no-resolve 写在主配置的 RULE-SET 那一行，不写在本文件
+# IP-ASN,399358 不能放进 ipcidr 文件，写在主配置 rules 里
+
+payload:
+  - 160.79.104.0/21    # Anthropic 自有 IPv4，160.79.104.0–160.79.111.255
+  - 2607:6bc0::/32     # Anthropic IPv6

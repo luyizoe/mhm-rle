@@ -1,0 +1,39 @@
+# Claude / Anthropic 域名规则
+# 来源: https://ip.net.coffee/claude/site.html 「完整分流配置」里的域名条目
+# 用法: mihomo rule-provider，behavior: classical，format: yaml
+# 保持 classical 是因为 DOMAIN-KEYWORD 不能放进 behavior: domain，也不能编译进 mrs
+#
+# 没有放进本文件的条目，写在主配置里:
+#   keyword:sentry          页面放在「兜底规则」，可复制配置里没有这条
+#   geosite:anthropic       其中包含本文件没有的 claude.dev
+#   geosite:category-ntp    NTP 走 UDP，用来对齐时区，不是 Claude 域名
+
+payload:
+  # 核心域名。DOMAIN-SUFFIX,anthropic.com 已覆盖 cdn / mcp / console / workbench 等子域名
+  - DOMAIN-SUFFIX,anthropic.com
+  - DOMAIN-SUFFIX,claude.ai
+  - DOMAIN-SUFFIX,claude.com
+  - DOMAIN-SUFFIX,clau.de
+  - DOMAIN-SUFFIX,claudemcpclient.com
+  - DOMAIN-SUFFIX,claudemcpcontent.com
+  - DOMAIN-SUFFIX,claudeusercontent.com
+
+  # CDN 和静态资源
+  - DOMAIN,servd-anthropic-website.b-cdn.net
+  - DOMAIN,anthropic.com.cdn.cloudflare.net
+
+  # 认证 / 内容
+  - DOMAIN,anthropic.auth0.com
+  - DOMAIN,anthropic-com.ghost.io
+
+  # 监控和遥测
+  - DOMAIN-SUFFIX,sentry.io
+  - DOMAIN-SUFFIX,statsigapi.net
+  - DOMAIN,browser-intake-us5-datadoghq.com
+  - DOMAIN-KEYWORD,datadog
+  - DOMAIN-KEYWORD,sift
+
+  # 客服 / 第三方 widget。纯 API 用户可在主配置里改成 REJECT
+  - DOMAIN-SUFFIX,intercom.io
+  - DOMAIN-SUFFIX,intercomcdn.com
+  - DOMAIN,cdn.usefathom.com
